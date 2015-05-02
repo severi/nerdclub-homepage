@@ -66,5 +66,27 @@ angular.module('calendarevents').controller('CalendareventsController', ['$scope
                 calendareventId: $stateParams.calendareventId
             });
         };
+
+        $scope.participate = function(calendarevent) {
+            console.log(calendarevent.participants);
+            var exists=false;
+            for(var i = 0; i < calendarevent.participants.length; i++) {
+                if (Authentication.user._id === calendarevent.participants[i]){
+                    exists=true;
+                    calendarevent.participants.splice(i,1);
+                }
+            }
+            if (exists==false){
+                calendarevent.participants.push(Authentication.user._id);
+            }
+
+            calendarevent.$update(function() {
+                //successfull
+            }, function(errorResponse) {
+                console.log("error...");
+                $scope.error = errorResponse.data.message;
+            });
+
+        };
     }
 ]);

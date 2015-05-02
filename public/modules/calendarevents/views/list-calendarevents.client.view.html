@@ -13,6 +13,10 @@
 			<h4 class="list-group-item-heading" data-ng-bind="calendarevent.name"></h4>
                         <h4 class="list-group-item-heading" data-ng-bind="calendarevent.startDate"></h4>
                         <h4 class="list-group-item-heading" data-ng-bind="calendarevent.endDate"></h4>
+		<p class="btn btn-primary" data-ng-click="participate(calendarevent);">
+			<i class="glyphicon glyphicon-trash"></i>
+		</p>
+
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!calendarevents.$resolved || calendarevents.length">
