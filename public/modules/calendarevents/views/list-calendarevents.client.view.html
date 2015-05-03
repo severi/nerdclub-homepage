@@ -11,8 +11,9 @@
 				<span data-ng-bind="calendarevent.user.displayName"></span>
 			</small>
 			<h4 class="list-group-item-heading" data-ng-bind="calendarevent.name"></h4>
-                        <h4 class="list-group-item-heading" data-ng-bind="calendarevent.startDate"></h4>
-                        <h4 class="list-group-item-heading" data-ng-bind="calendarevent.endDate"></h4>
+                        <p class="list-group-item-heading" data-ng-bind="calendarevent.startDate"></p>
+                        <p class="list-group-item-heading" data-ng-bind="calendarevent.endDate"></p>
+                        Participating: <p class="list-group-item-heading" data-ng-bind="calendarevent.participants.length"></p>
 		<p class="btn btn-primary" data-ng-click="participate(calendarevent);">
 			<i class="glyphicon glyphicon-trash"></i>
 		</p>
