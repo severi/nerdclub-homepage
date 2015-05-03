@@ -72,8 +72,8 @@ exports.delete = function(req, res) {
 /**
  * List of Calendarevents
  */
-exports.list = function(req, res) { 
-	Calendarevent.find().sort('-created').populate('user', 'displayName').exec(function(err, calendarevents) {
+exports.list = function(req, res) {
+	Calendarevent.find().sort('-created').populate('user', 'displayName').populate('participants','displayName').exec(function(err, calendarevents) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -87,8 +87,8 @@ exports.list = function(req, res) {
 /**
  * Calendarevent middleware
  */
-exports.calendareventByID = function(req, res, next, id) { 
-	Calendarevent.findById(id).populate('user', 'displayName').exec(function(err, calendarevent) {
+exports.calendareventByID = function(req, res, next, id) {
+	Calendarevent.findById(id).populate('user', 'displayName').populate('participants','displayName').exec(function(err, calendarevent) {
 		if (err) return next(err);
 		if (! calendarevent) return next(new Error('Failed to load Calendarevent ' + id));
 		req.calendarevent = calendarevent ;
