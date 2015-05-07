@@ -76,7 +76,7 @@ angular.module('calendarevents').controller('CalendareventsController', ['$scope
                     calendarevent.participants.splice(i,1);
                 }
             }
-            if (exists==false){
+            if (exists===false){
                 calendarevent.participants.push(Authentication.user._id);
             }
 
@@ -91,14 +91,14 @@ angular.module('calendarevents').controller('CalendareventsController', ['$scope
         function getDay(d){
             var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
             return days[d.getDay()];
-        };
+        }
 
         function getDate(d){
-            return d.getDate().toString()+"."+(1+d.getMonth()).toString()+"."+d.getFullYear().toString();
-        };
+            return d.getDate().toString()+'.'+(1+d.getMonth()).toString()+'.'+d.getFullYear().toString();
+        }
         function getTime(d){
             return d.toLocaleTimeString();
-        };
+        }
 
         $scope.getDateString = function(date){
             if (date===undefined){
