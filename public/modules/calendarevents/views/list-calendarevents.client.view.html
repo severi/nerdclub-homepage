@@ -4,22 +4,23 @@
     </div>
     <div class="list-group">
         <a data-ng-repeat="calendarevent in calendarevents | orderBy: 'startDate'" data-ng-href="#!/calendarevents/{{calendarevent._id}}" class="list-group-item">
-            <small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="calendarevent.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="calendarevent.user.displayName"></span>
-			</small>
-            <h4 class="list-group-item-heading" data-ng-bind="calendarevent.name"></h4>
-            <p class="list-group-item-heading" data-ng-bind="calendarevent.startDate"></p>
-            <p class="list-group-item-heading" data-ng-bind="calendarevent.endDate"></p>
+          <h4 class="list-group-item-heading" data-ng-bind="calendarevent.name"></h4>
+          Start: {{getDateString(calendarevent.startDate)}}
+          <br/>
+          End: {{getDateString(calendarevent.endDate)}}
+          <br/>
             Participating:
             <p class="list-group-item-heading" data-ng-bind="calendarevent.participants.length"></p>
             <div data-ng-repeat="participant in calendarevent.participants">{{participant.displayName}}</div>
             <p class="btn btn-primary" data-ng-click="participate(calendarevent);">
                 <i class="glyphicon glyphicon-trash"></i>
             </p>
-
+            <small class="list-group-item-text">
+	      Posted on
+	      <span data-ng-bind="calendarevent.created | date:'medium'"></span>
+	      by
+	      <span data-ng-bind="calendarevent.user.displayName"></span>
+	    </small>
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!calendarevents.$resolved || calendarevents.length">

@@ -83,10 +83,31 @@ angular.module('calendarevents').controller('CalendareventsController', ['$scope
             calendarevent.$update(function() {
                 //successfull
             }, function(errorResponse) {
-                console.log("error...");
+                console.log('error...');
                 $scope.error = errorResponse.data.message;
             });
-
         };
+
+        function getDay(d){
+            var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+            return days[d.getDay()];
+        };
+
+        function getDate(d){
+            return d.getDate().toString()+"."+(1+d.getMonth()).toString()+"."+d.getFullYear().toString();
+        };
+        function getTime(d){
+            return d.toLocaleTimeString();
+        };
+
+        $scope.getDateString = function(date){
+            if (date===undefined){
+                return '';
+            }
+            var d = new Date(date);
+            return getDay(d)+' '+getDate(d)+' '+getTime(d);
+        };
+
+
     }
 ]);
