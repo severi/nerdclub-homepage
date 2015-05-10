@@ -3,25 +3,27 @@
         <h1>Events</h1>
     </div>
     <div class="list-group">
-        <a data-ng-repeat="calendarevent in calendarevents | orderBy: 'startDate'" data-ng-href="#!/calendarevents/{{calendarevent._id}}" class="list-group-item">
-          <h4 class="list-group-item-heading" data-ng-bind="calendarevent.name"></h4>
-          Start: {{getDateString(calendarevent.startDate)}}
-          <br/>
-          End: {{getDateString(calendarevent.endDate)}}
-          <br/>
-            Participating:
-            <p class="list-group-item-heading" data-ng-bind="calendarevent.participants.length"></p>
-            <div data-ng-repeat="participant in calendarevent.participants">{{participant.displayName}}</div>
+        <div data-ng-repeat="calendarevent in calendarevents | orderBy: 'startDate'" class="list-group-item">
+            <a data-ng-href="#!/calendarevents/{{calendarevent._id}}">
+                <h4 class="list-group-item-heading" data-ng-bind="calendarevent.name"></h4> Start: {{getDateString(calendarevent.startDate)}}
+                <br/> End: {{getDateString(calendarevent.endDate)}}
+                <br/> Participating:
+                <p class="list-group-item-heading" data-ng-bind="calendarevent.participants.length"></p>
+                <div data-ng-repeat="participant in calendarevent.participants">{{participant.displayName}}</div>
+            </a>
             <p class="btn btn-primary" data-ng-click="participate(calendarevent);">
-                <i class="glyphicon glyphicon-trash"></i>
+                <i class="glyphicon glyphicon-flag" data-ng-hide="isParticipating(calendarevent)"></i>
+                <i class="glyphicon glyphicon-signal" data-ng-show="isParticipating(calendarevent)"></i>
             </p>
+            <br/>
             <small class="list-group-item-text">
 	      Posted on
 	      <span data-ng-bind="calendarevent.created | date:'medium'"></span>
 	      by
 	      <span data-ng-bind="calendarevent.user.displayName"></span>
 	    </small>
-        </a>
+
+        </div>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!calendarevents.$resolved || calendarevents.length">
         No Calendarevents yet, why don't you <a href="/#!/calendarevents/create">create one</a>?

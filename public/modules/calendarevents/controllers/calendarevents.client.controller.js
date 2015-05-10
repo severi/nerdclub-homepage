@@ -68,16 +68,15 @@ angular.module('calendarevents').controller('CalendareventsController', ['$scope
         };
 
         $scope.participate = function(calendarevent) {
-            console.log(calendarevent.participants);
             var exists=false;
             for(var i = 0; i < calendarevent.participants.length; i++) {
-                if (Authentication.user._id === calendarevent.participants[i]){
+                if (Authentication.user._id === calendarevent.participants[i]._id){
                     exists=true;
                     calendarevent.participants.splice(i,1);
                 }
             }
             if (exists===false){
-                calendarevent.participants.push(Authentication.user._id);
+                calendarevent.participants.push(Authentication.user);
             }
 
             calendarevent.$update(function() {
@@ -107,6 +106,19 @@ angular.module('calendarevents').controller('CalendareventsController', ['$scope
             var d = new Date(date);
             return getDay(d)+' '+getDate(d)+' '+getTime(d);
         };
+
+
+
+        $scope.isParticipating = function(calendarevent) {
+
+            for(var i = 0; i < calendarevent.participants.length; i++) {
+                if (Authentication.user._id === calendarevent.participants[i]._id){
+                    return true;
+                }
+            }
+            return false;
+        };
+
 
 
     }
