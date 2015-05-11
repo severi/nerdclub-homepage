@@ -38,7 +38,11 @@ var CalendareventSchema = new Schema({
     participants: [{
         type: Schema.ObjectId,
         ref: 'User'
-    }]
+    }],
+    address: {
+        type: String,
+        trim: true
+    }
 
 });
 

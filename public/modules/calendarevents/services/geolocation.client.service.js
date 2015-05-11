@@ -7,8 +7,9 @@ angular.module('calendarevents').factory('Geolocation', ['$http',
 
         // Public API
         return {
-            getGeolocation: function() {
-                return $http.get('http://nominatim.openstreetmap.org/search/Unter%20den%20Linden%201%20Berlin?format=json&addressdetails=1&limit=1&polygon_svg=1');
+            getGeolocation: function(address) {
+                console.log(address+" <- address");
+                return $http.get('http://nominatim.openstreetmap.org/search/'+address+'?format=json&addressdetails=1&limit=1&polygon_svg=1');
             }
         };
     }

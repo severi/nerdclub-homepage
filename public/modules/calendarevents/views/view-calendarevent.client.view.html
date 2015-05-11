@@ -24,8 +24,8 @@
 	</small>
     <br/>
 </section>
-<section data-ng-controller="CalendarMapController">
+<section data-ng-controller="CalendarMapController" data-ng-init="findOne()">
     <div>
-      <leaflet width="100%" height="480px" center="center" defaults="defaults"></leaflet>
+      <leaflet width="100%" height="480px" center="center" defaults="defaults" markers="markers"></leaflet>
     </div>
 </section>

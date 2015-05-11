@@ -12,7 +12,8 @@ angular.module('calendarevents').controller('CalendareventsController', ['$scope
                 name: this.name,
                 description: this.description,
                 startDate: this.startDate,
-                endDate: this.endDate
+                endDate: this.endDate,
+                address: this.address
             });
 
             // Redirect after save
@@ -22,6 +23,7 @@ angular.module('calendarevents').controller('CalendareventsController', ['$scope
                 // Clear form fields
                 $scope.name = '';
                 $scope.description = '';
+                $scope.address = '';
             }, function(errorResponse) {
                 $scope.error = errorResponse.data.message;
             });
