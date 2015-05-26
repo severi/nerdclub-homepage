@@ -7,9 +7,12 @@ angular.module('calendarevents').factory('Reittiopas', ['$http',
 
         // Public API
         return {
-            getRoute: function() {
-                return $http.get('http://api.reittiopas.fi/hsl/prod/?request=route&user=severi&pass=n0rttikerh0&format=json&from=25.142606664271,60.210198019978&to=24.930525730128,60.168132701388&show=1&detail=limited&epsg_out=wgs84&epsg_in=wgs84');
+            getRoute: function(xLongitude, yLatitude) {
+                var address = 'http://api.reittiopas.fi/hsl/prod/?request=route&user=severi&pass=n0rttikerh0&format=json&from=' + xLongitude + ',' + yLatitude + '&to=25.14195,60.20963&show=1&full=limited&epsg_out=wgs84&epsg_in=wgs84';
+                console.log(address);
+                return $http.get(address);
             }
+
 
         };
     }
