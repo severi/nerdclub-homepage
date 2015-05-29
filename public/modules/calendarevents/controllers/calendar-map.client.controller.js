@@ -16,6 +16,7 @@ angular.module('calendarevents').controller('CalendarMapController', ['$scope', 
                 zoom: zoom
             },
             markers: {},
+            paths: {},
             defaults: {
                 scrollWheelZoom: false
             }
@@ -26,12 +27,12 @@ angular.module('calendarevents').controller('CalendarMapController', ['$scope', 
             Geolocation.getGeolocation(address).success(function(data, status, headers, config) {
                 latitude = parseFloat(data[0].lat);
                 longitude = parseFloat(data[0].lon);
-                zoom = 15;
+                zoom = 10;
 
                 mapConfig.center.lat = latitude;
                 mapConfig.center.lng = longitude;
                 mapConfig.center.zoom = zoom;
-                mapConfig.markers["eventMarker"] = {
+                mapConfig.markers.eventMarker = {
                     lat: latitude,
                     lng: longitude,
                     message: address,
@@ -40,26 +41,43 @@ angular.module('calendarevents').controller('CalendarMapController', ['$scope', 
                 };
 
                 Reittiopas.getRoute(longitude, latitude).success(function(data, status, headers, config) {
-                    console.log(mapConfig);
+
                     var legs = data[0][0].legs;
+
                     for (var i = 0; i < legs.length; i++) {
+                        var type = legs[i].type;
+                        var color = 'blue';
+                        var walk = 'walk';
+                        if (walk.includes(type)){
+                            color='red';
+                        }
+                        mapConfig.paths['path_' + i] = {
+                            color: color,
+                            weight: 4,
+                            latlngs: [],
+                        };
+
                         for (var j = 0; j < legs[i].locs.length; j++) {
                             var coord = legs[i].locs[j].coord;
-                            var legLon = coord.x;
-                            var legLat = coord.y;
-                            mapConfig.markers["marker_"+i+"_"+j]={
-                                lat:legLat,
-                                lng: legLon,
-                                message: "marker_"+i+"_"+j,
-                                focus: false,
-                                draggable:false
-                            };
+                            mapConfig.paths['path_' + i].latlngs.push({
+                                lat: coord.y,
+                                lng: coord.x
+                            });
                         }
                     }
-                    angular.extend($scope,mapConfig);
-                });
 
-                angular.extend($scope, mapConfig);
+                    var last = legs[legs.length-1];
+                    last = last.locs[last.locs.length-1].coord;
+                    mapConfig.markers.locationMarker = {
+                        lat: last.y,
+                        lng: last.x,
+                        focus: false,
+                        draggable: false
+                    };
+
+                    angular.extend($scope, mapConfig);
+
+                });
             });
         }
 
@@ -79,17 +97,7 @@ angular.module('calendarevents').controller('CalendarMapController', ['$scope', 
         };
 
 
-        angular.extend($scope, {
-            center: {
-                lat: latitude,
-                lng: longitude,
-                zoom: zoom
-            },
-            markers: {},
-            defaults: {
-                scrollWheelZoom: false
-            }
-        });
+        angular.extend($scope, mapConfig);
 
     }
 ]);
