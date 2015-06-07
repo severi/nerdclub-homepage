@@ -5,9 +5,23 @@ angular.module('calendarevents').controller('CalendarMapController', ['$scope', 
         $scope.authentication = Authentication;
 
         // Coordinates for Helsinki
-        var latitude = 60.192059;
-        var longitude = 24.945831;
+        var default_coordinate = {};
+        default_coordinate.latitude = 60.192059;
+        default_coordinate.longitude = 24.945831;
+
+        var latitude = default_coordinate.latitude;
+        var longitude = default_coordinate.longitude;
         var zoom = 5;
+
+        var userLatitude = latitude;
+        var userLongitude = longitude;
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                userLatitude = position.coords.latitude;
+                userLongitude = position.coords.longitude;
+            });
+        }
 
         var mapConfig = {
             center: {
@@ -22,34 +36,24 @@ angular.module('calendarevents').controller('CalendarMapController', ['$scope', 
             }
         };
 
+        angular.extend($scope, mapConfig);
 
-        function updateMap(address) {
-            Geolocation.getGeolocation(address).success(function(data, status, headers, config) {
-                latitude = parseFloat(data[0].lat);
-                longitude = parseFloat(data[0].lon);
-                zoom = 10;
-
-                mapConfig.center.lat = latitude;
-                mapConfig.center.lng = longitude;
-                mapConfig.center.zoom = zoom;
-                mapConfig.markers.eventMarker = {
-                    lat: latitude,
-                    lng: longitude,
-                    message: address,
-                    focus: true,
-                    draggable: false
-                };
-
-                Reittiopas.getRoute(longitude, latitude).success(function(data, status, headers, config) {
-
+        function getRoute(t_lng, t_lat, c_lng, c_lat, repeat) {
+            Reittiopas.getRoute(t_lng, t_lat, c_lng, c_lat).success(function(data, status, headers, config) {
+                var last = {};
+                if (data.length === 0) {
+                    if (repeat === true) {
+                        getRoute(t_lng, t_lat, default_coordinate.longitude, default_coordinate.latitude, false);
+                    }
+                } else {
                     var legs = data[0][0].legs;
 
                     for (var i = 0; i < legs.length; i++) {
                         var type = legs[i].type;
                         var color = 'blue';
                         var walk = 'walk';
-                        if (walk.includes(type)){
-                            color='red';
+                        if (walk.includes(type)) {
+                            color = 'red';
                         }
                         mapConfig.paths['path_' + i] = {
                             color: color,
@@ -66,18 +70,38 @@ angular.module('calendarevents').controller('CalendarMapController', ['$scope', 
                         }
                     }
 
-                    var last = legs[legs.length-1];
-                    last = last.locs[last.locs.length-1].coord;
-                    mapConfig.markers.locationMarker = {
-                        lat: last.y,
-                        lng: last.x,
-                        focus: false,
-                        draggable: false
-                    };
+                    last = legs[legs.length - 1];
+                    last = last.locs[last.locs.length - 1].coord;
+                }
+                mapConfig.markers.locationMarker = {
+                    lat: last.y,
+                    lng: last.x,
+                    focus: false,
+                    draggable: false
+                };
 
-                    angular.extend($scope, mapConfig);
+                angular.extend($scope, mapConfig);
 
-                });
+            });
+        }
+
+        function updateMap(address) {
+            Geolocation.getGeolocation(address).success(function(data, status, headers, config) {
+                latitude = parseFloat(data[0].lat);
+                longitude = parseFloat(data[0].lon);
+                zoom = 10;
+                mapConfig.center.lat = latitude;
+                mapConfig.center.lng = longitude;
+                mapConfig.center.zoom = zoom;
+                mapConfig.markers.eventMarker = {
+                    lat: latitude,
+                    lng: longitude,
+                    message: address,
+                    focus: true,
+                    draggable: false
+                };
+
+                getRoute(longitude, latitude, userLatitude, userLatitude, true);
             });
         }
 
@@ -95,9 +119,5 @@ angular.module('calendarevents').controller('CalendarMapController', ['$scope', 
                     }
                 });
         };
-
-
-        angular.extend($scope, mapConfig);
-
     }
 ]);
