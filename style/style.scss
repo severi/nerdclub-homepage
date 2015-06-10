@@ -1,0 +1,10 @@
+$brand-primary: #967ADC;
+$brand-success: #A0D468;
+@import "../public/lib/bootstrap-sass-official/assets/stylesheets/bootstrap";
+.sample { background: $brand-success; }
+
+
+$primary-color: blue;
+h1 {
+  color: $primary-color;
+}
