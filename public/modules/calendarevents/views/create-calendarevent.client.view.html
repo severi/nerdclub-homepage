@@ -6,12 +6,20 @@
         <form class="form-horizontal" data-ng-submit="create()" novalidate>
             <fieldset>
                 <div class="form-group">
+                  <div class="controls">
                     <label class="control-label" for="name">Name</label>
-                    <div class="controls">
                       <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+
+                      <label class="control-label" for="description">Description</label>
                       <input type="text" data-ng-model="description" id="description" class="form-control" placeholder="Description">
-                      <input type="datetime-local" data-ng-model="startDate" id="startDate" class="form-control">
-                      <input type="datetime-local" data-ng-model="endDate" id="endDate" class="form-control">
+
+                      <label class="control-label" for="startDate">Start Date</label>
+                      <input type="date" data-ng-model="startDate" max="{{endDate}}" id="startDate" class="form-control dateInput">
+
+                      <label class="control-label" for="endDate">End Date</label>
+                      <input type="date" data-ng-disabled="startDate==null" min="{{startDate}}" data-ng-model="endDate" id="endDate" class="form-control dateInput">
+
+                      <label class="control-label" for="address">Address</label>
                       <input type="text" data-ng-model="address" id="address" class="form-control" placeholder="Address">
                     </div>
                 </div>
