@@ -8,11 +8,32 @@ angular.module('calendarevents').controller('CalendareventsController', ['$scope
         // Create new Calendarevent
         $scope.create = function() {
             // Create new Calendarevent object
+            var dateFrom=null;
+            if (dateFrom){
+                dateFrom = new Date(this.startDate);
+                if (this.startTime){
+                    var time = this.startTime.split(':');
+                    dateFrom.setHours(time[0]);
+                    dateFrom.setMinutes(time[1]);
+                }
+            }
+
+            var dateTo=null;
+            if (this.endDate){
+                dateTo = new Date(this.endDate);
+                if (this.endTime){
+                    var time = this.endTime.split(':');
+                    dateTo.setHours(time[0]);
+                    dateTo.setMinutes(time[1]);
+                }
+            }
+
+
             var calendarevent = new Calendarevents({
                 name: this.name,
                 description: this.description,
-                startDate: this.startDate,
-                endDate: this.endDate,
+                startDate: dateFrom,
+                endDate: dateTo,
                 address: this.address
             });
 
