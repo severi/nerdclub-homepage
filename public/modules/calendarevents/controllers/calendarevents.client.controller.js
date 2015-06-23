@@ -6,28 +6,23 @@ angular.module('calendarevents').controller('CalendareventsController', ['$scope
         $scope.authentication = Authentication;
 
         // Create new Calendarevent
+        function readDatetimeFromForm(dateForm,timeForm) {
+            var datetime = null;
+            if (dateForm){
+                datetime = new Date(dateForm);
+                if (timeForm){
+                    var time = timeForm.split(':');
+                    datetime.setHours(time[0]);
+                    datetime.setMinutes(time[1]);
+                }
+            }
+            return datetime;
+        }
+
         $scope.create = function() {
             // Create new Calendarevent object
-            var dateFrom=null;
-            if (dateFrom){
-                dateFrom = new Date(this.startDate);
-                if (this.startTime){
-                    var time = this.startTime.split(':');
-                    dateFrom.setHours(time[0]);
-                    dateFrom.setMinutes(time[1]);
-                }
-            }
-
-            var dateTo=null;
-            if (this.endDate){
-                dateTo = new Date(this.endDate);
-                if (this.endTime){
-                    var time = this.endTime.split(':');
-                    dateTo.setHours(time[0]);
-                    dateTo.setMinutes(time[1]);
-                }
-            }
-
+            var dateFrom= readDatetimeFromForm(this.startDate, this.startTime);
+            var dateTo= readDatetimeFromForm(this.endDate, this.endTime);
 
             var calendarevent = new Calendarevents({
                 name: this.name,
