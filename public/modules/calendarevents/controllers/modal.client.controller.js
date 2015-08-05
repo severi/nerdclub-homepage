@@ -52,7 +52,7 @@ angular.module('calendarevents').controller('ModalDemoCtrl', function($scope, $m
 
 angular.module('calendarevents').controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'items', '$stateParams', '$location', 'Authentication', 'Calendarevents',
   function($scope, $modalInstance, items,$stateParams, $location, Authentication, Calendarevents) {
-
+      $scope.authentication = Authentication;
     $scope.items = items;
     $scope.selected = {
         item: $scope.items[0]

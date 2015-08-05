@@ -1,1 +1,43 @@
-this is a template included by directive
+<div ng-controller="ModalDemoCtrl">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Create Event!</h3>
+        </div>
+
+        <form class="form-horizontal" data-ng-submit="create()" novalidate>
+            <div class="modal-body">
+                <fieldset>
+                    <div class="form-group">
+                        <div class="controls">
+                            <label class="control-label" for="name">Name</label>
+                            <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+
+                            <label class="control-label" for="description">Description</label>
+                            <input type="text" data-ng-model="description" id="description" class="form-control" placeholder="Description">
+
+                            <label class="control-label" for="startDate">Start Date</label>
+                            <input type="date" data-ng-model="startDate" max="{{endDate}}" id="startDate" class="form-control dateInput">
+                            <input type="time" data-ng-model="startTime" data-ng-disabled="startDate==null" id="startTime" class="form-control dateInput">
+
+                            <label class="control-label" for="endDate">End Date</label>
+                            <input type="date" data-ng-disabled="startDate==null" min="{{startDate}}" data-ng-model="endDate" id="endDate" class="form-control dateInput">
+                            <input type="time" data-ng-model="endTime" data-ng-disabled="endDate==null" id="endTime" class="form-control dateInput">
+
+                            <label class="control-label" for="address">Address</label>
+                            <input type="text" data-ng-model="address" id="address" class="form-control" placeholder="Address">
+                        </div>
+                    </div>
+
+                    <div data-ng-show="error" class="text-danger">
+                        <strong data-ng-bind="error"></strong>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </form>
+    </script>
+    <button class="btn btn-default" ng-click="open('lg')">Create New Event</button>
+</div>

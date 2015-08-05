@@ -19,6 +19,7 @@ angular.module('calendarevents').controller('CalendareventsController', ['$scope
             return datetime;
         }
 
+        // DELETE THIS? now in modalInstance Controller
         $scope.create = function() {
             // Create new Calendarevent object
             var dateFrom= readDatetimeFromForm(this.startDate, this.startTime);
