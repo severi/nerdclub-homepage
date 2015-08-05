@@ -18,6 +18,7 @@ module.exports = {
                 'public/lib/leaflet/dist/leaflet.css',
             ],
             js: [
+                'public/lib/jquery/jquery.js',
                 'public/lib/angular/angular.js',
                 'public/lib/angular-resource/angular-resource.js',
                 'public/lib/angular-cookies/angular-cookies.js',
@@ -29,7 +30,8 @@ module.exports = {
                 'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
 
                 'public/lib/leaflet/dist/leaflet.js',
-                'public/lib/angular-leaflet-directive/dist/angular-leaflet-directive.min.js'
+                'public/lib/angular-leaflet-directive/dist/angular-leaflet-directive.min.js',
+                'public/dom/navbar-shrink.js'
             ]
         },
         css: [
