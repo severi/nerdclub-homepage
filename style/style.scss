@@ -1,14 +1,29 @@
-$brand-primary: #967ADC;
-$brand-success: #A0D468;
+//$brand-primary: black;
+//$brand-success: #A0D468;
 @import "../public/lib/bootstrap-sass-official/assets/stylesheets/bootstrap";
 .sample { background: $brand-success; }
 
 
-$primary-color: blue;
+$primary-color: black;
 h1 {
   color: $primary-color;
 }
 
+body{
+    background-color: #FAFAFA;
+}
+
 .dateInput{
     width:300px;
+}
+
+.navbar{
+    border-style:solid;
+    border: none;
+    border-bottom: thin solid #000000;
+    background-color:rgba(255,255,255,0.9);
+}
+
+div.modal-body{
+    margin:2em;
 }
