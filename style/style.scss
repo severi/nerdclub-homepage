@@ -17,26 +17,30 @@ body{
 }
 
 .navbar{
+    $transition-time: 1s;
     border-style:solid;
     border: none;
     border-bottom: thin solid #000000;
     background-color:rgba(255,255,255,0.9);
-}
+    -webkit-transition: background-color $transition-time; /* For Safari 3.1 to 6.0 */
+    transition: background-color $transition-time;
 
-#logo{
-    padding:2em;
-    width:auto;
-    height:8em;
-     -webkit-transition: height 1s; /* For Safari 3.1 to 6.0 */
-    transition: height 1s;
+    img{
+        padding:1em;
+        width:auto;
+        height:6em;
+        -webkit-transition: height $transition-time; /* For Safari 3.1 to 6.0 */
+        transition: height $transition-time;
+    }
 }
 
 div.modal-body{
     margin:2em;
 }
-.shrink {
+.navbar.shrink {
+    background-color:rgba(0,0,0,0.9);
     img{
-        height:0px !important;
+        height:0px;
     }
 }
 
