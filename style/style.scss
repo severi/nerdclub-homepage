@@ -1,10 +1,9 @@
 //$brand-primary: black;
 //$brand-success: #A0D468;
 @import "../public/lib/bootstrap-sass-official/assets/stylesheets/bootstrap";
+$primary-color: black;
 .sample { background: $brand-success; }
 
-
-$primary-color: black;
 h1 {
   color: $primary-color;
 }
@@ -35,6 +34,12 @@ body{
 div.modal-body{
     margin:2em;
 }
-.shrink img{
-    height:0px !important;
+.shrink {
+    img{
+        height:0px !important;
+    }
+}
+
+.content {
+     padding-top:10em;
 }
